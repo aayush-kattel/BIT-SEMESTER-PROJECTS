@@ -8,6 +8,7 @@
 #include <time.h>
 #include <sys/ioctl.h>
 #include <string.h>
+#include <sys/time.h>
 
 // Audio globals
 Mix_Music *bgMusic = NULL;
@@ -73,10 +74,10 @@ void initAudio() {
     }
     
     // Load sounds with full paths
-    bgMusic = Mix_LoadMUS("/home/darkhunter/Desktop/project/assets/bg_music.mp3");
-    collisionSound = Mix_LoadWAV("/home/darkhunter/Desktop/project/assets/collision.wav");
-    heartSound = Mix_LoadWAV("/home/darkhunter/Desktop/project/assets/heart.wav");
-    gameOverSound = Mix_LoadWAV("/home/darkhunter/Desktop/project/assets/game_over.wav");
+    bgMusic = Mix_LoadMUS("/home/darkhunter/Desktop/project/first-semester/assets/bg_music.mp3");
+    collisionSound = Mix_LoadWAV("/home/darkhunter/Desktop/project/first-semester/assets/collision.wav");
+    heartSound = Mix_LoadWAV("/home/darkhunter/Desktop/project/first-semester/assets/heart.wav");
+    gameOverSound = Mix_LoadWAV("/home/darkhunter/Desktop/project/first-semester/assets/game_over.wav");
     
     if (!bgMusic || !collisionSound || !heartSound || !gameOverSound) {
         fprintf(stderr, "Sound loading error: %s\n", Mix_GetError());
@@ -400,7 +401,8 @@ int showMenu() {
 void showCustomizationMenu() {
     int carShapeChoice, carColorChoice, obstacleShapeChoice, obstacleColorChoice;
     char *shapes[] = {"Block", "Triangle", "Circle"};
-    char *colors[] = {"Blue", "Green", "Yellow", "Black", "Purple", "Orange", "White"};
+    char *carColorsMenu[] = {"Blue", "Green", "Yellow", "Black", "Purple", "Orange", "White"};
+    char *obstacleColorsMenu[] = {"Red", "Green", "Yellow", "Black", "Purple", "Orange", "White"};
 
     do {
         system("clear");
@@ -424,7 +426,7 @@ void showCustomizationMenu() {
         printCentered("       CAR COLOR CUSTOMIZATION       ");
         printCentered("=====================================");
         for (int i = 0; i < 7; i++) {
-            printf("%*s%d. %s\n", getTerminalWidth() / 2 - 10, "", i + 1, colors[i]);
+            printf("%*s%d. %s\n", getTerminalWidth() / 2 - 10, "", i + 1, carColorsMenu[i]);
         }
         printCentered("=====================================");
         printf("\n%*sEnter your car color choice (1-7): ", getTerminalWidth() / 2 - 10, "");
@@ -456,7 +458,7 @@ void showCustomizationMenu() {
         printCentered("  OBSTACLE COLOR CUSTOMIZATION      ");
         printCentered("=====================================");
         for (int i = 0; i < 7; i++) {
-            printf("%*s%d. %s\n", getTerminalWidth() / 2 - 10, "", i + 1, colors[i]);
+            printf("%*s%d. %s\n", getTerminalWidth() / 2 - 10, "", i + 1, obstacleColorsMenu[i]);
         }
         printCentered("=====================================");
         printf("\n%*sEnter your obstacle color choice (1-7): ", getTerminalWidth() / 2 - 10, "");
@@ -473,15 +475,14 @@ void showCustomizationMenu() {
 
     carShape = carShapeChoice;
     const char *carColorsArray[] = {
-        "\033[0;34m", "\033[0;32m", "\033[0;33m", "\033[0;30m",
-        "\033[0;35m", "\033[0;38m", "\033[0;37m"
-    };
+        "\033[0;34m","\033[0;32m","\033[0;33m","\033[0;30m",
+        "\033[0;35m","\033[0;38m","\033[0;37m"};
     carColor = carColorsArray[carColorChoice];
 
     obstacleShape = obstacleShapeChoice;
     const char *obstacleColorsArray[] = {
         "\033[0;31m", "\033[0;32m", "\033[0;33m", "\033[0;30m",
-        "\033[0;35m", "\033[0;38m", "\033[0;37m"
+        "\033[0;35m", "\033[0;38m", "\033[0;37m"  
     };
     obstacleColor = obstacleColorsArray[obstacleColorChoice];
 
